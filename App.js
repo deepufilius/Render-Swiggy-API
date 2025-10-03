@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const h2 = document.createElement("h2");
+const reactElement = <h2>React Element!</h2>;
 
-h2.innerText = "Hello World from JavaScript";
+const number = 100;
 
-const rootElement = document.getElementById("root");
+const FunctionalComponent = ()=>(
+    <div>
+        {number}
+        <h1>This is functional component!</h1>
+        {reactElement}
+        {console.log("inside a component")}
+    </div>
+);
 
-rootElement.appendChild(h2);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const h3 = React.createElement("h3",{id:"section"},"Hello World from React NPM Package");
-
-const root = ReactDOM.createRoot(document.getElementById("root2"));
-
-root.render(h3);
+root.render(<FunctionalComponent/>);
