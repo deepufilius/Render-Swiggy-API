@@ -1,0 +1,35 @@
+{
+  "name": "react-swiggy",
+  "version": "1.0.0",
+  "description": "A try out to render Swiggy API in React",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepufilius/Render-Swiggy-API.git"
+  },
+  "keywords": [
+    "javascript",
+    "node",
+    "react",
+    "react-router",
+    "tailwind",
+    "redux"
+  ],
+  "author": "Deepu Filius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deepufilius/Render-Swiggy-API/issues"
+  },
+  "homepage": "https://github.com/deepufilius/Render-Swiggy-API#readme",
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}
