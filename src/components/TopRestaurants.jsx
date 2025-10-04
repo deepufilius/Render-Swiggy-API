@@ -1,11 +1,12 @@
 import RestaurantCard from "./RestaurantCard";
 import restaurants from "../utils/resData";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import Shimmer from "./Shimmer";
 
 const TopRestaurants = ()=>{
 
-    const [allRestaurants,setAllRestaurants] = useState(restaurants);
-    const [listOfRestaurants,setListOfRestaurants] = useState(restaurants);
+    const [allRestaurants,setAllRestaurants] = useState([]);
+    const [listOfRestaurants,setListOfRestaurants] = useState([]);
     
     function handleReset(){
         setListOfRestaurants(allRestaurants);
@@ -18,7 +19,19 @@ const TopRestaurants = ()=>{
         setListOfRestaurants(filteredRestaurants);
     }
 
-    return(
+    const handleFetch = async()=>{
+        const response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.7216671&lng=83.2904248&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const json = await response.json();
+        
+        setAllRestaurants(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setListOfRestaurants(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+    }
+
+    useEffect(()=>{
+        handleFetch();
+    },[]);
+
+    return listOfRestaurants.length===0 ? <Shimmer/> : (
         <div className="top-restro-container">
             <div className="search-filter-container">
                 <div className="search">
