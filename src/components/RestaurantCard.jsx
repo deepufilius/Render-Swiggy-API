@@ -8,10 +8,10 @@ const RestaurantCard = (props)=>{
         <div className="restro-card">
             <img className="restro-image" src={IMG_URL+cloudinaryImageId}/>
             <div className="restro-info">
-                <h3>{name}</h3>
+                <h4 className="restro-title">{name}</h4>
                 <h4>{avgRating} &middot; {sla.slaString}</h4>
-                <h4>{cuisines.join(", ")}</h4>
-                <h4>{areaName}</h4>
+                <p className="restro-cuisine">{cuisines.join(", ")}</p>
+                <p>{areaName}</p>
             </div>
         </div>
     )

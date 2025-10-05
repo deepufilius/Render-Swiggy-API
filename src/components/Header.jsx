@@ -1,6 +1,14 @@
 import { LOGO_URL } from "../utils/constants";
+import { useState } from "react";
 
 const Header = ()=>{
+
+    const [toggle,setToggle] = useState(true);
+
+    const handleLogin = ()=>{
+        toggle === true? setToggle(false) : setToggle(true);
+    }
+
     return(
         <div className="header">
             <div className="header-container">
@@ -13,6 +21,7 @@ const Header = ()=>{
                         <li>About Us</li>
                         <li>Contact Us</li>
                         <li>Cart</li>
+                        <button className="login" onClick={handleLogin}>{toggle?"Sign In":"Logout"}</button>
                     </ul>
                 </div>
             </div>
