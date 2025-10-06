@@ -38,6 +38,11 @@
     font-weight: bolder;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+}
+
 .login{
     font: inherit;
     font-weight: bolder;
