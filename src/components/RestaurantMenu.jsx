@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { MENU_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+import SimmerMenu from "./SimmerMenu";
 
 const RestaurantMenu = () => {
     const [resInfo, setResInfo] = useState(null);
@@ -33,13 +34,13 @@ const RestaurantMenu = () => {
 
     console.log(resMenu);
 
-  return resInfo && (
-    <div>
+  return resInfo===null? <SimmerMenu/> : (
+    <div className="restro-menu-container">
         <h1>{resInfo.name}</h1>
-        <div>
-            <p>{resInfo.avgRatingString}({resInfo.totalRatingsString}&middot;{resInfo.costForTwoMessage})</p>
-            <p>{resInfo.cuisines.join(", ")}</p>
-            <p>{resInfo.areaName}</p>
+        <div className="menu-header">
+            <p className="menu-rating">{resInfo.avgRatingString}({resInfo.totalRatingsString}) &middot; {resInfo.costForTwoMessage}</p>
+            <p className="menu-cuisine">{resInfo.cuisines.join(", ")}</p>
+            <p className="menu-area">{resInfo.areaName}</p>
         </div>
             {
                 resMenu.map(category=>(
