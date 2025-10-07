@@ -1,46 +1,26 @@
-import { useState,useEffect } from "react";
-import { MENU_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
 import SimmerMenu from "./SimmerMenu";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-    const [resInfo, setResInfo] = useState(null);
-    const [resMenu, setResMenu] = useState([]);
     const {resID} = useParams();
 
-    const fetchMenu = async()=>{
-        const response = await fetch(MENU_URL+resID);
-        const json = await response.json();
+    const [resInfo,resMenu] = useRestaurantMenu(resID);
 
-        //console.log(json.data.cards);
-
-        const restaurantInfo = json.data?.cards[2]?.card?.card?.info;
-        const allCards = json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
-        const itemCards = allCards.filter(card=>{
-            return card.card.card.itemCards;
-        })
-
-        //console.log(itemCards);
-
-        setResInfo(restaurantInfo);        
-        setResMenu(itemCards);
+    if(resInfo === null){
+        return <SimmerMenu/>;
     }
 
-    useEffect(()=>{
-        fetchMenu();
-    },[]);
+    const {name,avgRatingString,totalRatingsString,costForTwoMessage,cuisines,areaName} = resInfo;
 
-    console.log(resMenu);
-
-  return resInfo===null? <SimmerMenu/> : (
+  return (
     <div className="restro-menu-container">
-        <h1>{resInfo.name}</h1>
+        <h1>{name}</h1>
         <div className="menu-header">
-            <p className="menu-rating">{resInfo.avgRatingString}({resInfo.totalRatingsString}) &middot; {resInfo.costForTwoMessage}</p>
-            <p className="menu-cuisine">{resInfo.cuisines.join(", ")}</p>
-            <p className="menu-area">{resInfo.areaName}</p>
+            <p className="menu-rating">{avgRatingString}({totalRatingsString}) &middot; {costForTwoMessage}</p>
+            <p className="menu-cuisine">{cuisines.join(", ")}</p>
+            <p className="menu-area">{areaName}</p>
         </div>
             {
                 resMenu.map(category=>(

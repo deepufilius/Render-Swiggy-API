@@ -297,3 +297,9 @@ a{
     margin-bottom: 1rem;
 }
 
+.offline,
+.grocery{
+    margin-top: 4rem;
+    text-align: center;
+}
+
