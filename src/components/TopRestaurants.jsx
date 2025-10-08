@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withRestaurantOffer} from "./RestaurantCard";
 import restaurants from "../utils/resData";
 import { useState,useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -10,6 +10,8 @@ const TopRestaurants = ()=>{
     const [filteredList,setFilteredList] = useState([]);
     const [searchText,setSearchText] = useState("");
     
+    const RestaurantOfferCard = withRestaurantOffer(RestaurantCard);
+
     function handleReset(){
         setFilteredList(allRestaurants);
     }
@@ -40,6 +42,8 @@ const TopRestaurants = ()=>{
         setFilteredList(searchList);
     }
 
+    console.log(filteredList);
+
     return filteredList.length===0 ? <Shimmer/> : (
         <div className="top-restro-container">
             <div className="search-filter-container">
@@ -55,8 +59,12 @@ const TopRestaurants = ()=>{
             <div className="restro-container">
                 {
                     filteredList.map(restaurant=>(
-                        <Link key={restaurant.info.id} to={`/restaurants/${restaurant.info.id}`}>
-                            <RestaurantCard restaurant={restaurant}/>
+                        <Link className="transition-transform duration-200 ease-in-out hover:scale-95" key={restaurant.info.id} to={`/restaurants/${restaurant.info.id}`}>
+                            {
+                                (restaurant.info.aggregatedDiscountInfoV3)?
+                                <RestaurantOfferCard restaurant={restaurant}/>:
+                                <RestaurantCard restaurant={restaurant}/>
+                            }
                         </Link>
                     ))
                 }

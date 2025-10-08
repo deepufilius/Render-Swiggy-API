@@ -1,55 +1,23 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+@import "tailwindcss";
+
+@layer base{
+    *{
+        font-family: sans-serif;
+    }
+
+    .nav-items>ul>li{
+        @apply mr-8 list-none font-bold;
+    }
+
+    a{
+        @apply text-black no-underline;
+    }
 }
 
-.header{
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.header-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin-inline: auto;
-}
-
-.logo-container{
-    height: 80px;
-}
-
-.logo{
-    height: 100%;
-    background-color: white;
-}
-
-.nav-items>ul{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.nav-items>ul>li{
-    margin-right: 2rem;
-    list-style-type: none;
-    font-weight: bolder;
-}
-
-a{
-    color: black;
-    text-decoration: none;
-}
-
-.login{
-    font: inherit;
-    font-weight: bolder;
-    background-color: white;
-    border: none;
-    cursor: pointer;
-    opacity: 0.7;
+@layer components{
+    .flex-nav {
+        @apply flex justify-between items-center;
+    }
 }
 
 .body{
