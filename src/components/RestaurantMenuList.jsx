@@ -1,6 +1,6 @@
 import { MENU_IMG_URL } from "../utils/constants";
 
-const RestaurantCategory = ({info}) => {
+const RestaurantMenuList = ({info}) => {
 
     console.log(info);
     const {name,price,defaultPrice,description,imageId,ratings} = info;
@@ -31,4 +31,4 @@ const RestaurantCategory = ({info}) => {
   )
 }
 
-export default RestaurantCategory;
+export default RestaurantMenuList;
