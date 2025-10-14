@@ -1,16 +1,21 @@
 import { useState,useEffect } from "react";
 import { MENU_URL } from "./constants";
+import { restroInfo } from "./restroInfo";
+import { resMenuList } from "../utils/resMenuList";
 
 const useRestaurantMenu = (resID)=>{
     const [resInfo, setResInfo] = useState(null);
     const [resMenu, setResMenu] = useState([]);
     
     const fetchMenu = async()=>{
-        const response = await fetch(MENU_URL+resID);
-        const json = await response.json();
+        //const response = await fetch(MENU_URL+resID);
+        //const json = await response.json();
 
-        const restaurantInfo = json.data?.cards[2]?.card?.card?.info;
-        const allCards = json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+        //const restaurantInfo = json.data?.cards[2]?.card?.card?.info;
+        //const allCards = json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+
+        const restaurantInfo = restroInfo;
+        const allCards = resMenuList;
 
         const itemCards = allCards.filter(card=>{
             return card.card.card.itemCards;

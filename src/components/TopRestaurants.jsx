@@ -1,14 +1,16 @@
 import RestaurantCard,{withRestaurantOffer} from "./RestaurantCard";
 import restaurants from "../utils/resData";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const TopRestaurants = ()=>{
 
     const [allRestaurants,setAllRestaurants] = useState([]);
     const [filteredList,setFilteredList] = useState([]);
     const [searchText,setSearchText] = useState("");
+    const {loggedInUser, setUserName} = useContext(UserContext);
     
     const RestaurantOfferCard = withRestaurantOffer(RestaurantCard);
 
@@ -52,6 +54,8 @@ const TopRestaurants = ()=>{
                     <button className="filter-btn" onClick={handleSearch}>Search</button>
                 </div>
                 <div className="filter">
+                    <label>User Name: </label>
+                    <input type="text" className="border border-gray-400 rounded-2xl px-6 py-2" value={loggedInUser} onChange={(e)=>setUserName(e.target.value)}/>
                     <button className="filter-btn" onClick={handleReset}>All</button>
                     <button className="filter-btn" onClick={handleFilter}>Ratings 4.0+</button>
                 </div>

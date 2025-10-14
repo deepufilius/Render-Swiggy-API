@@ -5,9 +5,9 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { useState } from "react";
 
 const RestaurantMenu = () => {
-    const [toggle,setToggle] = useState(false);
     const {resID} = useParams();
     const [resInfo,resMenu] = useRestaurantMenu(resID);
+    const [showIndex, setShowIndex] = useState(0);
 
     if(resInfo === null){
         return <SimmerMenu/>;
@@ -15,8 +15,8 @@ const RestaurantMenu = () => {
 
     const {name,avgRatingString,totalRatingsString,costForTwoMessage,cuisines,areaName} = resInfo;
 
-    const handleToggle = ()=>{
-        setToggle(!toggle);
+    const handleShowList = (index)=>{
+        showIndex === index ? setShowIndex(-1):setShowIndex(index);
     }
 
   return (
@@ -31,23 +31,14 @@ const RestaurantMenu = () => {
         </div>
         <div className="bg-gray-100 pt-4 space-y-4">
             {
-                resMenu.map(category=>(
-                    <div className=" bg-white" key={category.card.card.title}>
-                        <div className="px-3 py-3.5 flex items-center justify-between cursor-pointer" onClick={handleToggle}>
-                            <span className="font-bold">{category.card.card.title} ({category.card.card.itemCards.length})</span>
-                            <span>{toggle?"⬆️":"⬇️"}</span>
-                        </div>
-                        <div className="px-2.5">
-                            {
-                                category.card.card.itemCards.map((items,index,cards)=>(
-                                    toggle && <div key={items.card.info.id}>
-                                        <RestaurantCategory info={items.card.info}/>
-                                        {index <cards.length-1 && <hr className="bg-gray-300 border-0 h-[1px]"/>}
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
+                resMenu.map((category,index)=>(
+                    <RestaurantCategory 
+                        category={category} 
+                        key={category.card.card.title} 
+                        showList = {showIndex===index? true : false }
+                        currentIndex = {index}
+                        handleShowList= {handleShowList}
+                    />
                 ))
             }
         </div>

@@ -1,13 +1,19 @@
 import { LOGO_URL } from "../utils/constants";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = ()=>{
 
     const [toggle,setToggle] = useState(true);
 
     const onlineStatus = useOnlineStatus();
+
+    const userData = useContext(UserContext);
+
+    const cartItems = useSelector(store=>store.cart.items);
 
     const handleLogin = ()=>{
         toggle === true? setToggle(false) : setToggle(true);
@@ -26,8 +32,9 @@ const Header = ()=>{
                         <li><Link to={"/about"}>About Us</Link></li>
                         <li><Link to={"/contact"}>Contact Us</Link></li>
                         <li><Link to={"/grocery"}>Grocery</Link></li>
-                        <li>Cart</li>
+                        <li><Link to={"/cart"}>Cart ({cartItems.length}) </Link></li>
                         <button className="font-bold bg-white border-0 cursor-pointer opacity-60" onClick={handleLogin}>{toggle?"Sign In":"Logout"}</button>
+                        <li className="ml-1.5">{userData.loggedInUser}</li>
                     </ul>
                 </div>
             </div>

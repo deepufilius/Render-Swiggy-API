@@ -1,6 +1,11 @@
-import {IMG_URL} from "../utils/constants"
+import {IMG_URL} from "../utils/constants";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const RestaurantCard = (props)=>{
+
+    const userData = useContext(UserContext);
+    const {loggedInUser} = userData;
 
     const {name,cloudinaryImageId,areaName,cuisines,avgRating,sla} = props?.restaurant?.info;
 
@@ -15,6 +20,7 @@ const RestaurantCard = (props)=>{
                 <h4>{avgRating} &middot; {sla.slaString}</h4>
                 <p className="restro-cuisine">{cuisines.join(", ")}</p>
                 <p>{areaName}</p>
+                <p>User: {loggedInUser}</p>
             </div>
         </div>
     )
